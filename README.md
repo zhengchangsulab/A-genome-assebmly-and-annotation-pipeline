@@ -34,7 +34,7 @@ export PATH=$PATH:$PWD
 # 1.3. Run the pipeline
 
 # Step 1
-Generate contigs using long reads and polish the contigs using Illumina short reads using Wtdbg2. Given the nanopore long reads with a 109X sequencing depth and 1Gbp estimated genome size, we used the following command lines:
+Use Wtdbg2 to generate contigs using long reads and polish the contigs using Illumina short reads. Given the nanopore long reads with a 109X sequencing depth and 1Gbp estimated genome size, we used the following command lines:
 
 NANOPORE=nanopore long reads.fastq\
 SHORTREAD1=Illumina paired-end-1.fastq\
@@ -49,7 +49,7 @@ bwa index $PREFIX\.ctg.2nd.fa\
 bwa mem -t $threads $PREFIX\.ctg.2nd.fa $SHORTREAD1 $SHORTREAD2 | samtools sort -@ $threads-1 -O SAM | wtpoa-cns -t $threads -x sam-sr -d $PREFIX\.ctg.2nd.fa -i - -fo $PREFIX\.ctg.3rd.fa
 
 # Step 2
-Bridge the contigs into scaffolds using Hi-C paired-end reads using SALSA. Based on the contigs obtained in the previous step, we used the following command lines:
+Use SALSA to bridge the contigs into scaffolds using Hi-C paired-end reads. Based on the contigs obtained in Step 1, we used the following command lines:
 
 CONTIGFILE=F025.ctg.3rd.fa\
 HICFILE1=Hi-C pair-end-1.fastq\
@@ -73,10 +73,10 @@ sort -k 4 --parallel=16 --temporary-directory=$TEMPDIR aln-$PREFIX\.bed > aln-$P
 python $SALSADIR/run_pipeline.py -a $CONTIGFILE -l $CONTIGFILE\.fai -b aln-$PREFIX\.srt.bed -e AAGCTT -o $PREFIX -m yes -i 4 -s 1000000000 -c 500
 
 # Step 3
-Fill gaps introduced in Step 2 using long reads using PBJelly.
+Use PBjelly to fill gaps introduced in Step 2 using long reads.
 
 # Step 4
-Polish the scaffolds obtained from Step 3 using long reads using Racon. It is recommended to run Racon for 2-3 rounds. By running 3 rounds, we used the following command lines:
+Use Racon to polish the scaffolds obtained in Step 3 using long reads. It is recommended to run Racon for 2-3 rounds. By running 3 rounds, we used the following command lines:
 
 GENNAME=jelly.out.fasta\
 NANOPORE=nanopore long reads.fastq\
@@ -91,7 +91,7 @@ minimap2 -x $types -t $threads racon.2nd.fasta $NANOPORE > $PREFIX\3.paf\
 racon -t $threads -u $NANOPORE $PREFIX\3.paf racon.2nd.fasta > racon.3rd.fasta
 
 # Step 5
-Polish the scaffolds using short reads using Nextpolish. It is recommended to run Nextpolish for 2-3 rounds. By running 2 rounds, we used the following command lines:
+Use Nextpolish to polish the scaffolds obtained in Step 4 using short reads. It is recommended to run Nextpolish for 2-3 rounds. By running 2 rounds, we used the following command lines:
 
 nextpolish=/Nextpolish_Dir/nextpolish1.py\
 input=racon.3rd.fasta\
