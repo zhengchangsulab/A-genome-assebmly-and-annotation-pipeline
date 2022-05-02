@@ -13,7 +13,7 @@ export PATH=$PATH:$PWD
 
 # Run the pipeline
 
-# Genome assembly
+# Assemble the genome
 
 # Dependencies
 •	Wtdbg2\
