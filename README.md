@@ -1,5 +1,5 @@
 # A-genome-assebmly-and-annotation-pipeline
-A pipeline for assembling and annotating vertebrate genomes using Illumina short reads, PacBio or Nanopore long reads and HiC data 
+A pipeline for assembling and annotating vertebrate genomes using Illumina short reads, PacBio or Nanopore long reads and HiC data.
 
 # Installation
 
@@ -12,7 +12,7 @@ export PATH=$PATH:/PATH/TO/ A-genome-assembly-and-annotation-pipeline/scripts/
 # Genome assembly
 
 # Dependencies
-•	Wtdbg2
+•	Wtdbg2\
 •	Samtools
 •	Minimap2
 •	BWA
