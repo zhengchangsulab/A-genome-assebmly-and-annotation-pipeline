@@ -8,7 +8,7 @@ cd A-genome-assebmly-and-annotation-pipeline\
 chmod -R 711 scripts\
 cd bin\
 export PATH=$PATH:$PWD\
-cd ..\scripts\
+cd ../scripts\
 export PATH=$PATH:$PWD
 
 # Running the pipeline
