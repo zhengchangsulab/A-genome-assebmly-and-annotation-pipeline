@@ -73,10 +73,10 @@ sort -k 4 --parallel=16 --temporary-directory=$TEMPDIR aln-$PREFIX\.bed > aln-$P
 python $SALSADIR/run_pipeline.py -a $CONTIGFILE -l $CONTIGFILE\.fai -b aln-$PREFIX\.srt.bed -e AAGCTT -o $PREFIX -m yes -i 4 -s 1000000000 -c 500
 
 # Step 3
-Fill gaps introduced from the scaffolding step using long reads using PBJelly.
+Fill gaps introduced in Step 2 using long reads using PBJelly.
 
 # Step 4
-Polish the scaffolds using long reads using Racon. It is recommended to run Racon for 2-3 rounds. By running 3 rounds, we used the following command lines:
+Polish the scaffolds obtained from Step 3 using long reads using Racon. It is recommended to run Racon for 2-3 rounds. By running 3 rounds, we used the following command lines:
 
 GENNAME=jelly.out.fasta\
 NANOPORE=nanopore long reads.fastq\
