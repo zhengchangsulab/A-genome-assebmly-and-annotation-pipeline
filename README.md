@@ -91,7 +91,7 @@ minimap2 -x $types -t $threads racon.2nd.fasta $NANOPORE > $PREFIX\3.paf\
 racon -t $threads -u $NANOPORE $PREFIX\3.paf racon.2nd.fasta > racon.3rd.fasta
 
 # Step 5
-Use Nextpolish to polish the scaffolds obtained in Step 4 using short reads. We run Nextpolish 2 rounds using the following commands:
+Use Nextpolish to further polish the scaffolds obtained in Step 4 using short reads. We run Nextpolish 2 rounds using the following commands:
 
 nextpolish=/Nextpolish_Dir/nextpolish1.py\
 input=racon.3rd.fasta\
