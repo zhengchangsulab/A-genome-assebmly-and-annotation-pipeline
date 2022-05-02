@@ -115,7 +115,7 @@ for ((i=1; i<=${round};i++)); do\
 done;
 
 # 1.4. Output
-•	The final assembly is genome.nextpolish.fa. Since it contains many lower-case letters to represent the bases added from Nextpolish in the sequence and its sequence name contains space, you need to process the sequence into upper-case letters and remove the space of the sequence name. You can use the following command line to do the process:
+•	The final assembly is genome.nextpolish.fa. Since it contains many lower-case letters to represent the bases added from Nextpolish in the sequence and its sequence name contains space, you need to process the sequence into upper-case letters and remove the space of the sequence name. You can use the following commands to do so:
 
 genome=genome.nextpolish.fa\
 genome-pre.py $genome > my_genome.fa
