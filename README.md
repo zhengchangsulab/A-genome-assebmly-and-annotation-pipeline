@@ -146,7 +146,7 @@ genome-pre.py $genome > my_genome.fa
 # 2.3. Run the pipeline
 
 # Step 1
-Map the reference CDS isoforms to the target assembly using Splign. We used the following command lines:
+Use Splign to map the reference CDS isoforms to the target assembly. We used the following commands:
 
 reference_cds=reference_CDS.fa\
 genome=my_genome.fa\
@@ -162,7 +162,7 @@ cd ..\
 splign -ldsdir fasta_dir -comps ./fasta_dir/cdna.compartments > splign.output.ref
 
 # Step 2
-Map the Illumina paired-end sequencing reads to the genome to get the region not supported by the short reads using Bowtie2 allowing no-mismatch. We used the following command lines:
+Use Bowtie2 to map the Illumina paired-end sequencing reads to the genome to get the region not supported by the short reads allowing no-mismatch. We used the following commands:
 
 genome=my_genome.fa\
 r1=Illumina paired-end-1.fastq\ 
@@ -174,7 +174,7 @@ bedtools genomecov -ibam out.bam -bga > out.bed\
 awk '$4=="0"{print $0}' out.bed > notsupport.region
 
 # Step 3
-Map the RNA-seq short reads to rRNA database using Bowtie2 to get the unaligned reads, which are cleaned reads. Assemble the cleaned reads into transcripts using STAR and Trinity genome-guided method. We used the following command lines:
+Use Bowtie2 to map the RNA-seq short reads to rRNA database to get the unaligned reads, which are cleaned reads. Assemble the cleaned reads into transcripts using STAR and Trinity genome-guided method. We used the following commands:
 
 rrna=rrna_database.fa\
 left=RNA-seq paired-end-1.fastq\
@@ -195,7 +195,7 @@ RNAbam=$PREFIX\Aligned.sortedByCoord.out.bam\
 Trinity --output Trinity_GG --genome_guided_bam $RNAbam --genome_guided_max_intron 200000 --CPU $threads --max_memory 350G --verbose
  
 # Step 4
-Predict non-coding RNAs using Infernal against Rfam database. We used the following command lines:
+Use Infernal to predict non-coding RNAs against Rfam database. We used the following commands:
 
 Rfam_path=Path of Rfam database\
 Genome=my_genome.fa\
@@ -205,7 +205,7 @@ cmscan --cpu 48 --tblout result.tbl $Rfam_path/Rfam.cm $Genome > result_final.cm
 Particularly, step 1, step 2, step 3 and step 4 can be executed simultaneously if there are enough memory on your cluster.
 
 # Step 5
-Map the transcripts obtained in step 3 to the target assembly using Splign. We used the following command lines:
+Use Splign to map the transcripts obtained in step 3 to the target assembly. We used the following commands:
 
 genome=my_genome.fa\
 rna=transcripts.fa\
@@ -221,13 +221,13 @@ cd ..\
 splign -ldsdir fasta_dir -comps ./fasta_dir/rna.compartments -type est > splign.output.rna
 
 # Step 6
-Get the annotation results. We used the following command line:
+Get the annotation results. We used the following commands:
 
 cat parameter.txt annotation.pip > final.pip\
 chmod 711 final.pip\
 final.pip
 
-You need to copy the parameter.txt from examples to your work directory and revise it to indict the path of your genome, reference CDS isoforms and their corresponding genes’ name, Splign output from reference CDS, Splign output from RNA-seq data, bed file of the genome region not supported by Illumina paired-end sequencing reads, non-coding RNA prediction result, path of NR database, minimum open reading frame length of RNA-unique genes (we recommend 300bp), minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species, and you can use a smaller number if the RNA-seq data are not from the same species), number of iterations of Psi-blast, name of the output of Psi-blast, e-value of Psi-blast and number of threads to use of Psi-blast. Examples gives the examples of parameter.txt and the other files you need.
+You need to copy the parameter.txt from examples to your work directory and revise it to indicate the path of your genome, reference CDS isoforms and their corresponding genes’ name, Splign output from reference CDS, Splign output from RNA-seq data, bed file of the genome region not supported by Illumina paired-end sequencing reads, non-coding RNA prediction result, path of NR database, minimum open reading frame length of RNA-unique genes (we recommend 300bp), minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species, and you can use a smaller number if the RNA-seq data are not from the same species), number of iterations of Psi-blast, name of the output of Psi-blast, e-value of Psi-blast and number of threads to use of Psi-blast. Examples gives the examples of parameter.txt and the other files you need.
 
 # 2.4. Output
 •	final_annotation.gff3: final annotation results.
