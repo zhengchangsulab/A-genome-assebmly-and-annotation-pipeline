@@ -3,9 +3,9 @@ A pipeline for assembling and annotating vertebrate genomes using Illumina short
 
 # Installation
 
-git clone https://github.com/zhengchangsulab/A-genome-assebmly-and-annotation-pipeline.git
+git clone https://github.com/zhengchangsulab/A-genome-assebmly-and-annotation-pipeline.git \
 export PATH=$PATH:/PATH/TO/A-genome-assembly-and-annotation-pipeline/bin/\
-export PATH=$PATH:/PATH/TO/ A-genome-assembly-and-annotation-pipeline/scripts/\
+export PATH=$PATH:/PATH/TO/ A-genome-assembly-and-annotation-pipeline/scripts/
 
 # Running the pipeline
 
@@ -27,7 +27,7 @@ export PATH=$PATH:/PATH/TO/ A-genome-assembly-and-annotation-pipeline/scripts/\
 # Preparation
 •	Illumina paired-end sequencing reads\
 •	PacBio/Nanopore long reads\
-•	Hi-C paired-end reads\
+•	Hi-C paired-end reads
 
 # Step 1
 Generate contigs using long reads and polish the contigs using Illumina short reads using Wtdbg2. Given the nanopore long reads with 109X and 1Gbp estimated genome size, we used the following command lines:
