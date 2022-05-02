@@ -225,7 +225,7 @@ Get the annotation results. We used the following command line:
 
 cat parameter.txt annotation.pip > final.pip\
 chmod 711 final.pip\
-final.pip\
+final.pip
 
 You need to copy the parameter.txt from examples to your work directory and revise it to indict the path of your genome, reference CDS isoforms and their corresponding genes’ name, Splign output from reference CDS, Splign output from RNA-seq data, bed file of the genome region not supported by Illumina paired-end sequencing reads, non-coding RNA prediction result, path of NR database, minimum open reading frame length of RNA-unique genes (we recommend 300bp), minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species, and you can use a smaller number if the RNA-seq data are not from the same species), number of iterations of Psi-blast, name of the output of Psi-blast, e-value of Psi-blast and number of threads to use of Psi-blast. Examples gives the examples of parameter.txt and the other files you need.
 
