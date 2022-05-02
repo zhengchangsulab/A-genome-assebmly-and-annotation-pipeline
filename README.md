@@ -34,7 +34,7 @@ export PATH=$PATH:$PWD
 # 1.3. Run the pipeline
 
 # Step 1
-Generate contigs using long reads and polish the contigs using Illumina short reads using Wtdbg2. Given the nanopore long reads with 109X and 1Gbp estimated genome size, we used the following command lines:
+Generate contigs using long reads and polish the contigs using Illumina short reads using Wtdbg2. Given the nanopore long reads with 109X sequencing depth and 1Gbp estimated genome size, we used the following command lines:
 
 NANOPORE=nanopore long reads.fastq\
 SHORTREAD1=Illumina paired-end-1.fastq\
