@@ -49,7 +49,7 @@ bwa index $PREFIX\.ctg.2nd.fa\
 bwa mem -t $threads $PREFIX\.ctg.2nd.fa $SHORTREAD1 $SHORTREAD2 | samtools sort -@ $threads-1 -O SAM | wtpoa-cns -t $threads -x sam-sr -d $PREFIX\.ctg.2nd.fa -i - -fo $PREFIX\.ctg.3rd.fa
 
 # Step 2
-Bridge the contigs into scaffolds using Hi-C paired-end reads using SALSA. Based on the contigs we got in the previous step, we used the following command lines:
+Bridge the contigs into scaffolds using Hi-C paired-end reads using SALSA. Based on the contigs obtained in the previous step, we used the following command lines:
 
 CONTIGFILE=F025.ctg.3rd.fa\
 HICFILE1=Hi-C pair-end-1.fastq\
