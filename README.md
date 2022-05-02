@@ -11,7 +11,7 @@ export PATH=$PATH:$PWD\
 cd ../scripts\
 export PATH=$PATH:$PWD
 
-# Running the pipeline
+# Run the pipeline
 
 # Genome assembly
 
