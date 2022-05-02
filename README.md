@@ -5,11 +5,12 @@ A pipeline for assembling and annotating vertebrate genomes using Illumina short
 
 git clone https://github.com/zhengchangsulab/A-genome-assebmly-and-annotation-pipeline.git \
 cd A-genome-assebmly-and-annotation-pipeline\
+chmod -R 711 scripts\
 cd bin\
-export PATH=$PATH:PWD\
+export PATH=$PATH:$PWD\
 cd ..\
 cd scripts\
-export PATH=$PATH:PWD
+export PATH=$PATH:$PWD
 
 # Running the pipeline
 
