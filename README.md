@@ -11,11 +11,9 @@ export PATH=$PATH:$PWD\
 cd ../scripts\
 export PATH=$PATH:$PWD
 
-# Run the pipeline
+# 1 Assemble the genome
 
-# Assemble the genome
-
-# Dependencies
+# 1.1 Dependencies
 •	Wtdbg2\
 •	Samtools\
 •	Minimap2\
@@ -28,12 +26,14 @@ export PATH=$PATH:$PWD
 •	Nextpolish\
 •	Python3
 
-# Preparation
+# 1.2 Preparation
 •	Illumina paired-end sequencing reads\
 •	PacBio/Nanopore long reads\
 •	Hi-C paired-end reads
 
-# Step 1
+# 1.3 Run the pipeline
+
+# 1.3.1 Step 1
 Generate contigs using long reads and polish the contigs using Illumina short reads using Wtdbg2. Given the nanopore long reads with 109X and 1Gbp estimated genome size, we used the following command lines:
 
 NANOPORE=nanopore long reads.fastq\
@@ -48,7 +48,7 @@ samtools view -F 0x900 $PREFIX\.ctg.crt.bam | wtpoa-cns -t $threads -d $PREFIX\.
 bwa index $PREFIX\.ctg.2nd.fa\
 bwa mem -t $threads $PREFIX\.ctg.2nd.fa $SHORTREAD1 $SHORTREAD2 | samtools sort -@ $threads-1 -O SAM | wtpoa-cns -t $threads -x sam-sr -d $PREFIX\.ctg.2nd.fa -i - -fo $PREFIX\.ctg.3rd.fa
 
-# Step 2
+# 1.3.2 Step 2
 Bridge the contigs into scaffolds using Hi-C paired-end reads using SALSA. Based on the contigs we got in the previous step, we used the following command lines:
 
 CONTIGFILE=F025.ctg.3rd.fa\
@@ -72,10 +72,10 @@ bamToBed -i aln-$PREFIX\.bam > aln-$PREFIX\.bed\
 sort -k 4 --parallel=16 --temporary-directory=$TEMPDIR aln-$PREFIX\.bed > aln-$PREFIX\.srt.bed\
 python $SALSADIR/run_pipeline.py -a $CONTIGFILE -l $CONTIGFILE\.fai -b aln-$PREFIX\.srt.bed -e AAGCTT -o $PREFIX -m yes -i 4 -s 1000000000 -c 500
 
-# Step 3
+# 1.3.3 Step 3
 Fill gaps introduced from the scaffolding step using long reads using PBJelly.
 
-# Step 4
+# 1.3.4 Step 4
 Polish the scaffolds using long reads using Racon. It is recommended to run Racon for 2-3 rounds. By running 3 rounds, we used the following command lines:
 
 GENNAME=jelly.out.fasta\
@@ -90,7 +90,7 @@ racon -t $threads -u $NANOPORE $PREFIX\2.paf racon.fasta > racon.2nd.fasta\
 minimap2 -x $types -t $threads racon.2nd.fasta $NANOPORE > $PREFIX\3.paf\
 racon -t $threads -u $NANOPORE $PREFIX\3.paf racon.2nd.fasta > racon.3rd.fasta
 
-# Step 5
+# 1.3.5 Step 5
 Polish the scaffolds using short reads using Nextpolish. It is recommended to run Nextpolish for 2-3 rounds. By running 2 rounds, we used the following command lines:
 
 nextpolish=/Nextpolish_Dir/nextpolish1.py\
@@ -114,15 +114,15 @@ for ((i=1; i<=${round};i++)); do\
 	input=genome.nextpolish.fa\
 done;
 
-# Output
+# 1.4 Output
 •	The final assembly is genome.nextpolish.fa. Since it contains many lower-case letters to represent the bases added from Nextpolish in the sequence and its sequence name contains space, you need to process the sequence into upper-case letters and remove the space of the sequence name. You can use the following command line to do the process:
 
 genome=genome.nextpolish.fa\
 genome-pre.py $genome > my_genome.fa
 
-# Gene annotation
+# 2 Gene annotation
 
-# Dependencies
+# 2.1 Dependencies
 •	Splign\
 •	Blast\
 •	Python3\
@@ -135,7 +135,7 @@ genome-pre.py $genome > my_genome.fa
 •	GffRead\
 •	Infernal
 
-# Preparation
+# 2.2 Preparation
 •	Reference CDS isoforms from near species\
 •	RNA-seq short reads\
 •	Illumina paired-end sequencing reads\
@@ -143,7 +143,9 @@ genome-pre.py $genome > my_genome.fa
 •	NR database\
 •	Rfam database
 
-# Step 1
+# 2.3 Run the pipeline
+
+# 2.3.1 Step 1
 Map the reference CDS isoforms to the target assembly using Splign. We used the following command lines:
 
 reference_cds=reference_CDS.fa\
@@ -159,7 +161,7 @@ compart -qdb reference_CDS.fa -sdb my_genome.fa > cdna.compartments\
 cd ..\
 splign -ldsdir fasta_dir -comps ./fasta_dir/cdna.compartments > splign.output.ref
 
-# Step 2
+# 2.3.2 Step 2
 Map the Illumina paired-end sequencing reads to the genome to get the region not supported by the short reads using Bowtie2 allowing no-mismatch. We used the following command lines:
 
 genome=my_genome.fa\
@@ -171,7 +173,7 @@ bowtie2 -p $threads -x chicken -1 $r1 -2 $r2 --score-min L,0,0 | samtools view -
 bedtools genomecov -ibam out.bam -bga > out.bed\
 awk '$4=="0"{print $0}' out.bed > notsupport.region
 
-# Step 3
+# 2.3.3 Step 3
 Map the RNA-seq short reads to rRNA database using Bowtie2 to get the unaligned reads, which are cleaned reads. Assemble the cleaned reads into transcripts using STAR and Trinity genome-guided method. We used the following command lines:
 
 rrna=rrna_database.fa\
@@ -192,7 +194,7 @@ module load trinity/2.8.5\
 RNAbam=$PREFIX\Aligned.sortedByCoord.out.bam\
 Trinity --output Trinity_GG --genome_guided_bam $RNAbam --genome_guided_max_intron 200000 --CPU $threads --max_memory 350G --verbose
  
-# Step 4
+# 2.3.4 Step 4
 Predict non-coding RNAs using Infernal against Rfam database. We used the following command lines:
 
 Rfam_path=Path of Rfam database\
@@ -202,7 +204,7 @@ cmscan --cpu 48 --tblout result.tbl $Rfam_path/Rfam.cm $Genome > result_final.cm
 
 Particularly, step 1, step 2, step 3 and step 4 can be executed simultaneously if there are enough memory on your cluster.
 
-# Step 5
+# 2.3.5 Step 5
 Map the transcripts obtained in step 3 to the target assembly using Splign. We used the following command lines:
 
 genome=my_genome.fa\
@@ -218,7 +220,7 @@ compart -qdb transcripts.fa -sdb my_genome.fa > rna.compartments\
 cd ..\
 splign -ldsdir fasta_dir -comps ./fasta_dir/rna.compartments -type est > splign.output.rna
 
-# Step 6
+# 2.3.6 Step 6
 Get the annotation results. We used the following command line:
 
 cat parameter.txt annotation.pip > final.pip\
@@ -227,7 +229,7 @@ final.pip\
 
 You need to copy the parameter.txt from examples to your work directory and revise it to indict the path of your genome, reference CDS isoforms and their corresponding genes’ name, Splign output from reference CDS, Splign output from RNA-seq data, bed file of the genome region not supported by Illumina paired-end sequencing reads, non-coding RNA prediction result, path of NR database, minimum open reading frame length of RNA-unique genes (we recommend 300bp), minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species, and you can use a smaller number if the RNA-seq data are not from the same species), number of iterations of Psi-blast, name of the output of Psi-blast, e-value of Psi-blast and number of threads to use of Psi-blast. Examples gives the examples of parameter.txt and the other files you need.
 
-# Output
+# 2.4 Output
 •	final_annotation.gff3: final annotation results.
 
 # Citation
