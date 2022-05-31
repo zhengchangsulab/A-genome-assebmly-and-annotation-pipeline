@@ -124,7 +124,6 @@ genome-pre.py $genome > my_genome.fa
 
 # 2.1. Dependencies
 •	Splign\
-•	Blast\
 •	Python3\
 •	Bowtie2\
 •	Samtools\
@@ -132,7 +131,6 @@ genome-pre.py $genome > my_genome.fa
 •	Trinity\
 •	STAR\
 •	GFF3toolkit\
-•	GffRead\
 •	Infernal
 
 # 2.2. Preparation
@@ -140,7 +138,6 @@ genome-pre.py $genome > my_genome.fa
 •	RNA-seq short reads\
 •	Illumina paired-end sequencing reads\
 •	rRNA database\
-•	NR database\
 •	Rfam database
 
 # 2.3. Run the pipeline
@@ -221,14 +218,20 @@ cd ..\
 splign -ldsdir fasta_dir -comps ./fasta_dir/rna.compartments -type est > splign.output.rna
 
 # Step 6
-Get the annotation results. You need to copy the parameter.txt from examples to your work directory and revise it to indicate the path of your genome, reference CDS isoforms and their corresponding genes’ name, Splign output from reference CDS, Splign output from RNA-seq data, bed file of the genome region not supported by Illumina paired-end sequencing reads, non-coding RNA prediction result, path of NR database, minimum open reading frame length of RNA-unique genes (we recommend 300bp), minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species, and you can use a smaller number if the RNA-seq data are not from the same species), number of iterations of Psi-blast, name of the output of Psi-blast, e-value of Psi-blast and number of threads to use of Psi-blast. Examples gives the examples of parameter.txt and the other files you need. We used the following commands:
+Get the primary annotation results. You need to copy the parameter.txt from examples to your own work directory and revise it to indicate the path of your genome, reference CDS isoforms and their corresponding genes’ name, Splign output from reference CDS, Splign output from RNA-seq data, bed file of the genome region not supported by Illumina paired-end sequencing reads, non-coding RNA prediction result, minimum open reading frame length of RNA-unique genes (we recommend 300bp), minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species). We used the following commands:
 
-cat parameter.txt annotation.pip > final.pip\
-chmod 711 final.pip\
-final.pip
+annotation.pip
+
+# Step 7
+Correct CDS phase of the protein coding genes. We used the following commands:
+
+genome=my_genome.fa\
+gff3_QC -g tobe_check.gff3 -f $genome -o error.txt -s statistic.txt\
+gff3_fix -qc_r error.txt -g tobe_check.gff3 -og final_annotation_protein_coding_gene.gff3
 
 # 2.4. Output
-•	final_annotation.gff3: final annotation results.
+•	final_annotation_protein_coding_gene.gff3: annotation for protein coding genes
+•	ref_pseudogene.gff3: annotation for pseudogenes
 
 # Citation
 
