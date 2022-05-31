@@ -23,7 +23,11 @@ for i in h.keys():
     else:
         fp2.write(i+'\n')
         for x in h[i]:
-            fp2.write(x+'\n')
+            if re.search('.mRNA',x):
+                a=re.search('.mRNA',x).start()
+                fp2.write(x[:a]+'\n')
+            else:
+                fp2.write(x+'\n')
 fp1.close()
 fp2.close()
 

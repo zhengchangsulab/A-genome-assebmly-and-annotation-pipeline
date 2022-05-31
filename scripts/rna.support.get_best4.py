@@ -21,10 +21,11 @@ for i in h.keys():
         if y[2]=='exon':
             first.append(y[3])
             end.append(y[4])
-    print(j[0]+'\t'+j[1]+'\t'+j[2]+'\t'+first[0]+'\t'+end[-1]+'\t'+j[5]+'\t'+j[6]+'\t'+j[7]+'\t'+j[8])
-    for x in h[i]:
-        y=x.split()
-        if y[2]=='mRNA':
-            print(y[0]+'\t'+y[1]+'\t'+y[2]+'\t'+first[0]+'\t'+end[-1]+'\t'+y[5]+'\t'+y[6]+'\t'+y[7]+'\t'+y[8])
-        else:
-            print(x)
+    if first!=[]:
+        print(j[0]+'\t'+j[1]+'\t'+j[2]+'\t'+first[0]+'\t'+end[-1]+'\t'+j[5]+'\t'+j[6]+'\t'+j[7]+'\t'+j[8])
+        for x in h[i]:
+            y=x.split()
+            if y[2]=='mRNA':
+                print(y[0]+'\t'+y[1]+'\t'+y[2]+'\t'+first[0]+'\t'+end[-1]+'\t'+y[5]+'\t'+y[6]+'\t'+y[7]+'\t'+y[8])
+            else:
+                print(x)

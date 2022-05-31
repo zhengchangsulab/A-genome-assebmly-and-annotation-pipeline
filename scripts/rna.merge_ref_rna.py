@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import re
 ref_h=[]
-fp=open("final_ref_gene.gff3",'r')
+fp=open("ref_based1.gff3",'r')
 for i in fp:
     i=re.sub('\n','',i)
     j=i.split()

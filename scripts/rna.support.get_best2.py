@@ -34,10 +34,10 @@ for i in first.keys():
     for x in anno.keys():
         y=x.split()
         if y[8]==i:
-            new="ID=Gal"+str(n)+";"
-            fp1.write(i+'\t'+i+'-'+str(first[i])+'\t'+"Gal"+str(n)+'\n')
+            new="ID=novel"+str(n)+";"
+            fp1.write(i+'\t'+i+'-'+str(first[i])+'\t'+"novel"+str(n)+'\n')
             print(y[0]+'\t'+y[1]+'\t'+y[2]+'\t'+y[3]+'\t'+y[4]+'\t'+y[5]+'\t'+y[6]+'\t'+y[7]+'\t'+new)
             for a in anno[x]:
-                b=a.replace(i[3:],"Gal"+str(n))
+                b=a.replace(i[3:],"novel"+str(n))
                 print(b)
 fp1.close()

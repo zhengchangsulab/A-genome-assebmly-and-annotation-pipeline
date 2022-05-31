@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import re
 n=0
-fp=open("best1.greater0.985.sort",'r')
+fp=open("best1.pass.sort",'r')
 for i in fp:
     j=i.split()
     if n==0:
