@@ -14,12 +14,12 @@ export PATH=$PATH:$PWD
 # 1. Assemble the genome
 
 # 1.1. Dependencies
-•	Wtdbg2\
-•	Samtools\
-•	Minimap2\
-•	BWA\
+•	Wtdbg2/2.5\
+•	SAMtools/1.10\
+•	Minimap2/2.18\
+•	BWA/0.7.17\
 •	SALSA\
-•	Bedtools\
+•	BEDTools/2.29.0\
 •	Python2\
 •	PBJelly\
 •	Racon\
