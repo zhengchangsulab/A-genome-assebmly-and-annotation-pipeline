@@ -12,7 +12,7 @@ grep -v "notextend" best2_pseudogene_log > best2_pseudogene_need_extend
 ### Start analyzing the results of splign for RNA_based
 rna.get_best1.py
 sort -k2,2 -k5,5 -k3,3n best1 > sorted.best1
-rna.get_pass.py > best1.greater0.985.sort
+rna.get_pass.py > best1.pass.sort
 rna.get_best2.py > rna_based.gff3
 ### Finish analyzing the results of splign for RNA_based
 
@@ -28,10 +28,6 @@ cat pseudogene_part1.gff3 pseudogene_part2.gff3 > final_pseudogene.gff3
 ref.check_pseudogene.py > shortreads_notsupport.pseudogene
 ref.get_best4.py > ref_based1.gff3
 ref.get_best5.py
-gff3_QC -g ref_true_gene.gff3 -f $genome -o error.txt -s statistic.txt
-gff3_fix -qc_r error.txt -g ref_true_gene.gff3 -og corrected.ref_true_gene.gff3
-grep -v "#" corrected.ref_true_gene.gff3 > corrected.ref_true_gene1.gff3 
-cat corrected.ref_true_gene1.gff3 ref_pseudogene.gff3 > final_ref_gene.gff3
 ### Finish getting the ref_based gff3
 
 ### Start getting the rna_based_uniq gff3
@@ -44,24 +40,8 @@ rna.support.get_best2.py > rna_support.gff3
 rna.support.match_cds.py > rna_support1.gff3
 rna.support.get_best3.py > rna_support2.gff3
 rna.support.get_best4.py > rna_support3.gff3
-gff3_QC -g rna_support3.gff3 -f $genome -o error.txt -s statistic.txt
-gff3_fix -qc_r error.txt -g rna_support3.gff3 -og rna_support4.gff3
-grep -v "#" rna_support4.gff3 > rna_support5.gff3
 ### Finish getting the rna_based_uniq gff3
 
-### Start getting the function of rna_based_uniq genes
-gffread rna_support5.gff3 -g $genome -y protein.fa
-makeblastdb -in $nr -dbtype prot -out NR
-psiblast -query protein.fa -db NR -num_iterations=$psiblast_num_iterations -out $psiblast_out -outfmt 6 -evalue=$psiblast_evalue -num_threads $psiblast_threads
-grep "Gal" $psiblast_out | awk 'BEGIN {pre = " ";} {current = $1;if ( pre != current){pre = current; print $0;}}' > first.txt
-awk '{print $2}' first.txt | sed 's/^/>/' > test
-cat $nr | grep -f test > nr_support.genefunction
-rm test
-rna.func.get_new_gene.py > rna_support6.gff3
-grep "type=novel" rna_support6.gff3 | sort -k1,1 -k4,4n > novel_gene
-rna.func.new_check.py > final_rna_gene.gff3
-### Finish getting the function of rna_based_uniq genes
-
 ### Final protein coding genes and pseudogenes
-cat final_ref_gene.gff3 final_rna_gene.gff3 > final_annotation.gff3
+cat ref_true_gene.gff3 rna_support3.gff3 > tobe_check.gff3
 ### Finished
