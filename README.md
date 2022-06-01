@@ -20,11 +20,11 @@ export PATH=$PATH:$PWD
 •	BWA/0.7.17\
 •	SALSA\
 •	BEDTools/2.29.0\
-•	Python2\
+•	Python/2.7\
 •	PBJelly\
-•	Racon\
-•	Nextpolish\
-•	Python3
+•	Racon/1.4.21\
+•	Nextpolish/1.4.0\
+•	Python/3.6.8
 
 # 1.2. Preparation
 •	Illumina paired-end sequencing reads\
@@ -123,15 +123,15 @@ genome-pre.py $genome > my_genome.fa
 # 2. Gene annotation
 
 # 2.1. Dependencies
-•	Splign\
-•	Python3\
-•	Bowtie2\
-•	Samtools\
-•	Bedtools\
-•	Trinity\
-•	STAR\
-•	GFF3toolkit\
-•	Infernal
+•	Splign/2.0.0\
+•	Python/3.6.8\
+•	Bowtie2/2.4.1\
+•	SAMtools/1.10\
+•	BEDTools/2.29.0\
+•	Trinity/2.13.0\
+•	STAR/2.7.0c\
+•	GFF3toolkit/2.1.0\
+•	Infernal/1.1.2
 
 # 2.2. Preparation
 •	Reference CDS isoforms from near species\
