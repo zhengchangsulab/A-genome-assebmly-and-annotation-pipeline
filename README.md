@@ -224,7 +224,7 @@ Get the primary annotation results. You need to copy the parameter.txt from exam
 annotation.pip
 
 # Step 7
-Correct CDS phase of the protein coding genes. We used the following commands:
+Use GFF3toolkit to correct CDS phase of the protein coding genes. We used the following commands:
 
 genome=my_genome.fa\
 gff3_QC -g tobe_check.gff3 -f $genome -o error.txt -s statistic.txt\
