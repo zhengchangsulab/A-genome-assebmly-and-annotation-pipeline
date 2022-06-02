@@ -35,7 +35,7 @@ export PATH=$PATH:$PWD
 # 1.3. Run the pipeline
 
 # Step 1
-Use Wtdbg2 to generate contigs using long reads and polish the contigs using Illumina short reads. Given the nanopore long reads with a 109X sequencing depth and 1Gbp estimated genome size, we used the following commands:
+Use Wtdbg2 (https://github.com/ruanjue/wtdbg2) to generate contigs using long reads and polish the contigs using Illumina short reads. Given the nanopore long reads with a 109X sequencing depth and 1Gbp estimated genome size, we used the following commands:
 
 NANOPORE=nanopore long reads.fastq\
 SHORTREAD1=Illumina paired-end-1.fastq\
@@ -50,7 +50,7 @@ bwa index $PREFIX\.ctg.2nd.fa\
 bwa mem -t $threads $PREFIX\.ctg.2nd.fa $SHORTREAD1 $SHORTREAD2 | samtools sort -@ $threads-1 -O SAM | wtpoa-cns -t $threads -x sam-sr -d $PREFIX\.ctg.2nd.fa -i - -fo $PREFIX\.ctg.3rd.fa
 
 # Step 2
-Use SALSA to bridge the contigs into scaffolds using Hi-C paired-end reads. Based on the contigs obtained in Step 1, we used the following commands:
+Use SALSA (https://github.com/marbl/SALSA) to bridge the contigs into scaffolds using Hi-C paired-end reads. Based on the contigs obtained in Step 1, we used the following commands:
 
 CONTIGFILE=F025.ctg.3rd.fa\
 HICFILE1=Hi-C pair-end-1.fastq\
