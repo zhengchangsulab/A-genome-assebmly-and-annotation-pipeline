@@ -74,7 +74,7 @@ sort -k 4 --parallel=16 --temporary-directory=$TEMPDIR aln-$PREFIX\.bed > aln-$P
 python $SALSADIR/run_pipeline.py -a $CONTIGFILE -l $CONTIGFILE\.fai -b aln-$PREFIX\.srt.bed -e AAGCTT -o $PREFIX -m yes -i 4 -s 1000000000 -c 500
 
 # Step 3
-Use PBjelly to fill gaps introduced in Step 2 using long reads.
+Use PBjelly (https://github.com/esrice/PBJelly) to fill gaps introduced in Step 2 using long reads.
 
 # Step 4
 Use Racon to polish the scaffolds obtained in Step 3 using long reads. We run Racon 3 rounds using the following commands:
