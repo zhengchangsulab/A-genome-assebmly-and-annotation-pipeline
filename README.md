@@ -77,7 +77,7 @@ python $SALSADIR/run_pipeline.py -a $CONTIGFILE -l $CONTIGFILE\.fai -b aln-$PREF
 Use PBjelly (https://github.com/esrice/PBJelly) to fill gaps introduced in Step 2 using long reads.
 
 # Step 4
-Use Racon to polish the scaffolds obtained in Step 3 using long reads. We run Racon 3 rounds using the following commands:
+Use Racon (https://github.com/isovic/racon) to polish the scaffolds obtained in Step 3 using long reads. We run Racon 3 rounds using the following commands:
 
 GENNAME=jelly.out.fasta\
 NANOPORE=nanopore long reads.fastq\
@@ -92,7 +92,7 @@ minimap2 -x $types -t $threads racon.2nd.fasta $NANOPORE > $PREFIX\3.paf\
 racon -t $threads -u $NANOPORE $PREFIX\3.paf racon.2nd.fasta > racon.3rd.fasta
 
 # Step 5
-Use Nextpolish to further polish the scaffolds obtained in Step 4 using short reads. We run Nextpolish 2 rounds using the following commands:
+Use Nextpolish (https://github.com/Nextomics/NextPolish) to further polish the scaffolds obtained in Step 4 using short reads. We run Nextpolish 2 rounds using the following commands:
 
 nextpolish=/Nextpolish_Dir/nextpolish1.py\
 input=racon.3rd.fasta\
