@@ -226,9 +226,9 @@ cd ..\
 splign -ldsdir fasta_dir -comps ./fasta_dir/rna.compartments -type est > splign.output.rna
 
 # Step 6
-Get the primary annotation results.\
+Get the primary annotation results.
 You need to copy the parameter.txt from the examples to your own work directory and revise it to indicate the path of your following files:\
-1) Your genome\
+1) Your genome
 2) Reference CDS isoforms and their corresponding genes’ name\
 3) Splign output from reference CDS and RNA-seq data\
 4) Bed file of the genome region not supported by Illumina paired-end sequencing reads\
