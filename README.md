@@ -227,14 +227,15 @@ splign -ldsdir fasta_dir -comps ./fasta_dir/rna.compartments -type est > splign.
 
 # Step 6
 Get the primary annotation results.
-You need to copy the parameter.txt from the examples to your own work directory and revise it to indicate the path of your following files:\
+You need to copy the parameter.txt from the examples to your own work directory and revise it to indicate the path of your following files:
 1) Your genome
-2) Reference CDS isoforms and their corresponding genes’ name\
-3) Splign output from reference CDS and RNA-seq data\
-4) Bed file of the genome region not supported by Illumina paired-end sequencing reads\
-5) Non-coding RNA prediction result\
-6) Minimum open reading frame length of RNA-unique genes (we recommend 300bp)\
+2) Reference CDS isoforms and their corresponding genes’ name
+3) Splign output from reference CDS and RNA-seq data
+4) Bed file of the genome region not supported by Illumina paired-end sequencing reads
+5) Non-coding RNA prediction result
+6) Minimum open reading frame length of RNA-unique genes (we recommend 300bp)
 7) Minimum score of Splign output from RNA-seq data (we recommend 0.985 when RNA-seq data are from the same species).\
+\
 After preparing the parameter.txt file, we used the following commands:
 
 annotation.pip
