@@ -13,15 +13,18 @@ fp=open(splign,'r')
 for i in fp:
     i=re.sub('\n','',i)
     j=i.split()
-    name=j[1][4:]
-    if name not in splign_h.keys():
-        l=[]
-        l.append(i)
-        splign_h[name]=l
+    if j[0]=='#':
+        pass
     else:
-        l=splign_h[name]
-        l.append(i)
-        splign_h[name]=l
+        name=j[1][4:]
+        if name not in splign_h.keys():
+            l=[]
+            l.append(i)
+            splign_h[name]=l
+        else:
+            l=splign_h[name]
+            l.append(i)
+            splign_h[name]=l
 fp.close()
 fp1=open("best1",'w')
 for i in splign_h.keys():
