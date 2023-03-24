@@ -244,12 +244,12 @@ annotation.pip
 Use GFF3toolkit to correct the CDS phase of the protein coding genes. We used the following commands:
 
 genome=my_genome.fa\
-gff3_QC -g tobe_check.gff3 -f $genome -o error.txt -s statistic.txt\
-gff3_fix -qc_r error.txt -g tobe_check.gff3 -og final_annotation_protein_coding_gene.gff3
+gff3_QC -g final.use.truegene.gff3 -f $genome -o error.txt -s statistic.txt\
+gff3_fix -qc_r error.txt -g final.use.truegene.gff3 -og final.right.truegene.gff3
 
 # 2.4. Output
-•	final_annotation_protein_coding_gene.gff3: annotation for protein coding genes\
-•	ref_pseudogene.gff3: annotation for pseudogenes
+•	final.right.truegene.gff3: annotation for protein coding genes\
+•	final.right.pseudogene.gff3: annotation for pseudogenes
 
 # Citation
 
