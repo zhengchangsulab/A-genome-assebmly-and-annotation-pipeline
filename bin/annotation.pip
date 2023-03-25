@@ -51,7 +51,7 @@ final.check.py pseudogene.use.gff3 > final.right.pseudogene.gff3
 ### Finish getting the protein coding genes and pseudogenes
 
 ### Remove unnecessary files
-rm best2_truegene.gff3 pseudogene_part1.gff3 pseudogene_part2.gff3 ref_pseudogene.gff3 ref_true_gene.gff3 sorted.best1 new_old.name final.use.truegene.gff3 extend_log.txt extended_truegene.gff3 best1 sorted_best1 best2.gff3 cds.fa best2_pseudogene best2_pseudogene_log best2_pseudogene_need_extend best2_pseudogene.gff3 best1.pass.sort rna_based.gff3 test test.fa extended_pseudogene.gff3 extended_pseudogene_cds.fa final_truegene.gff3 final_pseudogene.gff3 shortreads_notsupport.pseudogene ref_based1.gff3 rna_uniq.gff3 rna_uniq1.gff3 rna_uniq_cds.fa rna_uniq_good_orf.fa total.support rna_support.gff3 rna_support1.gff3 rna_support2.gff3 rna_support3.gff3 tobe_check.gff3 truegene.use.gff3 pseudogene.use.gff3
+rm best2_truegene.gff3 pseudogene_part1.gff3 pseudogene_part2.gff3 ref_pseudogene.gff3 ref_true_gene.gff3 sorted.best1 new_old.name extend_log.txt extended_truegene.gff3 best1 sorted_best1 best2.gff3 cds.fa best2_pseudogene best2_pseudogene_log best2_pseudogene_need_extend best2_pseudogene.gff3 best1.pass.sort rna_based.gff3 test test.fa extended_pseudogene.gff3 extended_pseudogene_cds.fa final_truegene.gff3 final_pseudogene.gff3 shortreads_notsupport.pseudogene ref_based1.gff3 rna_uniq.gff3 rna_uniq1.gff3 rna_uniq_cds.fa rna_uniq_good_orf.fa total.support rna_support.gff3 rna_support1.gff3 rna_support2.gff3 rna_support3.gff3 tobe_check.gff3 truegene.use.gff3 pseudogene.use.gff3
 ### Finish removing unnecessary files
 
 ### Finisheid
