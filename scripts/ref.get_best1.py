@@ -19,14 +19,7 @@ for i in fp:
     if re.match('>',i):
         j=i.split()
         name=j[1].replace('=','-')[1:-1]
-        if name in h.keys():
-            l=h[name]
-            l.append(j[0][1:])
-            h[name]=l
-        else:
-            l=[]
-            l.append(j[0][1:])
-            h[name]=l
+        h[j[0][1:]]=name
 fp.close()
 gene_splign={}
 number_splign={}
@@ -45,18 +38,16 @@ for i in fp:
             l=number_splign[j[0]]
             l.append(i)
             number_splign[j[0]]=l
-        for x in h.keys():
-            if j[1] in h[x]:
-                if x in gene_splign.keys():
-                    l=gene_splign[x]
-                    if j[0] not in l:
-                        l.append(j[0])
-                    gene_splign[x]=l
-                else:
-                    l=[]
-                    l.append(j[0])
-                    gene_splign[x]=l
-                break
+        x=h[j[1]]
+        if x in gene_splign.keys():
+            l=gene_splign[x]
+            if j[0] not in l:
+                l.append(j[0])
+            gene_splign[x]=l
+        else:
+            l=[]
+            l.append(j[0])
+            gene_splign[x]=l
 fp.close()
 fp1=open("best1",'w')
 for i in gene_splign.keys():
