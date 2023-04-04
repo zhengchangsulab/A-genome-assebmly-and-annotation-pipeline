@@ -14,9 +14,22 @@ for i in fp:
         h[name]=l
 fp.close()
 for i in h.keys():
-    n=1
     print(i)
     if i.split()[2]=='gene':
+        exon=[]
+        cds=[]
+        gene_start=re.match('ID=',i.split()[8]).end()
+        gene_end=re.search(';',i.split()[8]).start()
+        gene_name=i.split()[8][gene_start:gene_end]
+        for a in h[i]:
+            b=a.split()
+            if b[2]=='CDS':
+                cds.append((int(b[3]),int(b[4])))
+            if b[2]=='exon':
+                exon.append((int(b[3]),int(b[4])))
+        new_exon=sorted(exon)
+        new_cds=sorted(cds)
+        n=1
         for a in h[i]:
             b=a.split()
             if b[2]=='mRNA':
@@ -25,21 +38,31 @@ for i in h.keys():
                 x=re.search('CDS',b[8]).start()
                 y=re.search(';',b[8]).start()
                 number=b[8][x:y]
-                new=b[8].replace(number,'CDS'+str(n))
-                print(b[0]+'\t'+b[1]+'\t'+b[2]+'\t'+b[3]+'\t'+b[4]+'\t'+b[5]+'\t'+b[6]+'\t'+'0'+'\t'+new)
+                new='ID='+gene_name+'.CDS'+str(n)+';Parent='+gene_name+'.mRNA'
+                print(b[0]+'\t'+b[1]+'\t'+b[2]+'\t'+str(new_cds[n-1][0])+'\t'+str(new_cds[n-1][1])+'\t'+b[5]+'\t'+b[6]+'\t'+'0'+'\t'+new)
                 n+=1
             else:
                 x=re.search('exon',b[8]).start()
                 y=re.search(';',b[8]).start()
                 number=b[8][x:y]
-                new=b[8].replace(number,'exon'+str(n))
-                print(b[0]+'\t'+b[1]+'\t'+b[2]+'\t'+b[3]+'\t'+b[4]+'\t'+b[5]+'\t'+b[6]+'\t'+b[7]+'\t'+new)
+                new='ID='+gene_name+'.exon'+str(n)+';Parent='+gene_name+'.mRNA'
+                print(b[0]+'\t'+b[1]+'\t'+b[2]+'\t'+str(new_exon[n-1][0])+'\t'+str(new_exon[n-1][1])+'\t'+b[5]+'\t'+b[6]+'\t'+b[7]+'\t'+new)
     else:
+        exon=[]
+        gene_start=re.match('ID=',i.split()[8]).end()
+        gene_end=re.search(';',i.split()[8]).start()
+        gene_name=i.split()[8][gene_start:gene_end]
+        for a in h[i]:
+            b=a.split()
+            if b[2]=='exon':
+                exon.append((int(b[3]),int(b[4])))
+        new_exon=sorted(exon)
+        n=1
         for a in h[i]:
             b=a.split()
             x=re.search('exon',b[8]).start()
             y=re.search(';',b[8]).start()
             number=b[8][x:y]
-            new=b[8].replace(number,'exon'+str(n))
-            print(b[0]+'\t'+b[1]+'\t'+b[2]+'\t'+b[3]+'\t'+b[4]+'\t'+b[5]+'\t'+b[6]+'\t'+b[7]+'\t'+new)
+            new='ID='+gene_name+'.exon'+str(n)+';Parent='+gene_name+'.mRNA'
+            print(b[0]+'\t'+b[1]+'\t'+b[2]+'\t'+str(new_exon[n-1][0])+'\t'+str(new_exon[n-1][1])+'\t'+b[5]+'\t'+b[6]+'\t'+b[7]+'\t'+new)
             n+=1
